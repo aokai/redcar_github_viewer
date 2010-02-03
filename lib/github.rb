@@ -7,12 +7,6 @@ module Redcar
 				end
 			end
 		end
-		
-		def self.loaded
-			# This should happen when Redcar is closed
-			dir = "#{Redcar.user_dir}/github/clone"
-			FileUtils.remove_entry_secure dir if File.exists? dir
-		end
 	end
 	
 	class OpenGithubProjectCommand < Command
@@ -38,6 +32,10 @@ module Redcar
 					ApplicationSWT.sync_exec do
 						new_window = Redcar.app.new_window
         				tree = Tree.new(Project::DirMirror.new(@rep_path),Project::DirController.new)
+                        
+                        new_window.add_listener :closed do
+                        	FileUtils.remove_entry_secure @rep_path if File.exists? @rep_path
+                        end
                         
         				Project.open_tree(new_window, tree)
 					end
