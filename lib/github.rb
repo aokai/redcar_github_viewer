@@ -10,7 +10,8 @@ module Redcar
 		
 		def self.loaded
 			# This should happen when Redcar is closed
-			FileUtils.remove_entry_secure "#{Redcar.user_dir}/github/clone"
+			dir = "#{Redcar.user_dir}/github/clone"
+			FileUtils.remove_entry_secure dir if File.exists? dir
 		end
 	end
 	
@@ -31,7 +32,7 @@ module Redcar
 				@rep_name = matched_result[2]
 				@rep_path = "#{Redcar.user_dir}/github/clone/#{@user_name}/#{@rep_name}"
 				
-				Thread.new(self, window) do |command, window|
+				Thread.new do
 					system "git clone #{@url} #{@rep_path}" 
 					
 					ApplicationSWT.sync_exec do
