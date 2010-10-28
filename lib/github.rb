@@ -11,7 +11,7 @@ module Redcar
 
     def self.keymaps
       osx = Keymap.build('main', :osx) do
-        link "Cmd+Shift+G", OpenGithubProjectCommand
+        link "Cmd+Shift+Alt+G", OpenGithubProjectCommand
       end
 
       linwin = Keymap.build('main', [:linux, :windows]) do
