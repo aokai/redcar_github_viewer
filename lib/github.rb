@@ -27,7 +27,7 @@ module Redcar
     attr_accessor :rep_path, :user_name, :rep_name, :url
 
     def execute
-      result = Application::Dialog.input(win,"Github Clone URL","Input the Clone URL")
+      result = Application::Dialog.input("Open Github Project","Github Clone URL","Input the Clone URL")
       @url = result[:value]
 
       matched_result = @url.match("github.com\/(.*)\/(.*).git")
@@ -52,7 +52,7 @@ module Redcar
         end
       else
         Application::Dialog.message_box(
-        win,
+        "Open Github Project",
         "Wrong format for the url: #{@url} . Use the clone url from github.",
         :type => :error )
       end
